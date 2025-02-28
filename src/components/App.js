@@ -91,7 +91,7 @@ const App = () => {
       <br></br>
 
       <button type="submit" onClick={handleClick}>
-        Submit
+        type="submit" onClick={handleClick}
       </button>
     </div>
   );
