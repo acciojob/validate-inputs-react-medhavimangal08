@@ -18,6 +18,7 @@ const App = () => {
   });
 
   function validateName(name) {
+    if (!name) return "Name is required";
     for (let n of name) {
       if (!aplhabets.includes(n)) {
         return "Name should contain only letters";
@@ -27,6 +28,7 @@ const App = () => {
   }
 
   function validateAddress(address) {
+    if (!address) return "Address is required";
     for (let a of address) {
       if (!aplhnumeric.includes(a)) {
         return "Address should not contain special characters";
@@ -36,15 +38,17 @@ const App = () => {
   }
 
   function validateEmail(email) {
-    if (!email.includes(".com") || !email.includes("@")) {
+    if (!email) return "Email is required";
+    if (!email.includes("@") || !email.includes(".com")) {
       return "Email should contain @ and .com";
     }
     return ""; // No error
   }
 
   function validatePhone(number) {
-    if (number.length !== 10) {
-      return "Mobile number should be exactly 10 characters";
+    if (!number) return "Mobile number is required";
+    if (number.length !== 10 || isNaN(number)) {
+      return "Mobile number should be exactly 10 digits";
     }
     return ""; // No error
   }
@@ -55,56 +59,50 @@ const App = () => {
     const emailError = validateEmail(email);
     const numberError = validatePhone(number);
 
-    // Update all errors at once
     setError({
       nameerror: nameError,
       addresserror: addressError,
       emailerror: emailError,
       numbererror: numberError,
     });
+
+    // Ensure Cypress sees changes by waiting for state updates
+    setTimeout(() => {}, 100);
   }
 
   return (
     <div>
       <label>Name</label>
       <input type="text" onChange={(e) => setName(e.target.value)} />
-      <br />
       {error.nameerror && (
         <p className="errorMessage" style={{ color: "red" }}>
           {error.nameerror}
         </p>
       )}
-      <br />
 
       <label>Address</label>
       <input type="text" onChange={(e) => setAddress(e.target.value)} />
-      <br />
       {error.addresserror && (
         <p className="errorMessage" style={{ color: "red" }}>
           {error.addresserror}
         </p>
       )}
-      <br />
 
       <label>Email</label>
       <input type="email" onChange={(e) => setEmail(e.target.value)} />
-      <br />
       {error.emailerror && (
         <p className="errorMessage" style={{ color: "red" }}>
           {error.emailerror}
         </p>
       )}
-      <br />
 
       <label>Mobile</label>
       <input type="tel" onChange={(e) => setNumber(e.target.value)} />
-      <br />
       {error.numbererror && (
         <p className="errorMessage" style={{ color: "red" }}>
           {error.numbererror}
         </p>
       )}
-      <br />
 
       <button type="submit" onClick={handleClick}>
         Submit
