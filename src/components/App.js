@@ -46,9 +46,8 @@ const App = () => {
   }
 
   function validatePhone(number) {
-    if (!number) return "Mobile number is required";
-    if (number.length !== 10 || isNaN(number)) {
-      return "Mobile number should be exactly 10 digits";
+    if (number.length !== 10) {
+      return "Mobile number should not be more than 10 characters";
     }
     return ""; // No error
   }
@@ -71,35 +70,25 @@ const App = () => {
     <div>
       <label>Name</label>
       <input type="text" onChange={(e) => setName(e.target.value)} />
-      {error.nameerror && (
-        <p className="errorMessage" style={{ color: "red" }}>
-          {error.nameerror}
-        </p>
-      )}
+      {error.nameerror && <p className="errorMessage">{error.nameerror}</p>}
+      <br></br>
 
       <label>Address</label>
       <input type="text" onChange={(e) => setAddress(e.target.value)} />
       {error.addresserror && (
-        <p className="errorMessage" style={{ color: "red" }}>
-          {error.addresserror}
-        </p>
+        <p className="errorMessage">{error.addresserror}</p>
       )}
+      <br></br>
 
       <label>Email</label>
       <input type="email" onChange={(e) => setEmail(e.target.value)} />
-      {error.emailerror && (
-        <p className="errorMessage" style={{ color: "red" }}>
-          {error.emailerror}
-        </p>
-      )}
+      {error.emailerror && <p className="errorMessage">{error.emailerror}</p>}
+      <br></br>
 
       <label>Mobile</label>
       <input type="tel" onChange={(e) => setNumber(e.target.value)} />
-      {error.numbererror && (
-        <p className="errorMessage" style={{ color: "red" }}>
-          {error.numbererror}
-        </p>
-      )}
+      {error.numbererror && <p className="errorMessage">{error.numbererror}</p>}
+      <br></br>
 
       <button type="submit" onClick={handleClick}>
         Submit
