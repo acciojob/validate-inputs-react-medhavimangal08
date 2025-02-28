@@ -65,9 +65,6 @@ const App = () => {
       emailerror: emailError,
       numbererror: numberError,
     });
-
-    // Ensure Cypress sees changes by waiting for state updates
-    setTimeout(() => {}, 100);
   }
 
   return (
